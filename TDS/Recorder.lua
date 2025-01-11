@@ -191,6 +191,8 @@ RSTimer.Changed:Connect(function()
     end
 end)
 
+local FarmsID = {}
+
 local GenerateFunction = {
     Place = function(Args, Timer, RemoteCheck)
         if typeof(RemoteCheck) ~= "Instance" then
@@ -211,6 +213,9 @@ local GenerateFunction = {
         local upgradeHandler = require(ReplicatedStorage.Client.Modules.Game.Interface.Elements.Upgrade.upgradeHandler)
         upgradeHandler:selectTroop(RemoteCheck)
         SetStatus(`Placed {TowerName}`)
+        if TowerName == "Farm" then
+            table.insert(FarmsID, RemoteCheck.Name)
+        end
         local TimerStr = table.concat(Timer, ", ")
         appendstrat(`TDS:Place("{TowerName}", {Position.X}, {Position.Y}, {Position.Z}, {TimerStr}, {RotateX}, {RotateY}, {RotateZ})`)
     end,
@@ -347,7 +352,7 @@ task.spawn(function()
         if tonumber(GameWave.Text) == FinalWave then
             repeat task.wait() until mainwindow.flags.autosellfarms
             for i,v in ipairs(game.Workspace.Towers:GetChildren()) do
-                if v.Owner.Value == LocalPlayer.UserId and v:WaitForChild("TowerReplicator"):GetAttribute("Type") == "Farm" then
+                if v.Owner.Value == LocalPlayer.UserId and table.find(FarmsID, v.Name) then
                     ReplicatedStorage.RemoteFunction:InvokeServer("Troops", "Sell", {["Troop"] = v})
                 end
             end

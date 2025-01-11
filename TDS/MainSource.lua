@@ -1,3 +1,6 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Sigmanic/Strategies-X/refs/heads/main/TDS/Maintenance.lua"))
+if getgenv().Maintenance then return end
+
 if getgenv().StratXLibrary and getgenv().StratXLibrary.Executed then
 	if StratXLibrary.Strat[#StratXLibrary.Strat].Active then
 		return Strat.new()
@@ -1025,7 +1028,7 @@ if not CheckPlace() then
 		LocalPlayer.Character.HumanoidRootPart.CFrame = Part.CFrame + Vector3.new(0, 3.5, 0)
 	end)
 
-	ReplicatedStorage:WaitForChild("Network"):WaitForChild("DailySpin"):WaitForChild("RedeemReward"):InvokeServer()
+	game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("DailySpin"):WaitForChild("RF:RedeemReward"):InvokeServer()
 
 	UI.EquipStatus = maintab:DropSection("Troops Loadout Status")
 	UI.TowersStatus = {
