@@ -11,19 +11,6 @@ local RSMap = ReplicatedStorage:WaitForChild("State"):WaitForChild("Map") --map'
 local VoteGUI = LocalPlayer.PlayerGui:WaitForChild("ReactOverridesVote"):WaitForChild("Frame"):WaitForChild("votes"):WaitForChild("vote") -- it is what it is
 local GameWave = LocalPlayer.PlayerGui:WaitForChild("ReactGameTopGameDisplay"):WaitForChild("Frame"):WaitForChild("wave"):WaitForChild("container"):WaitForChild("value") -- currennt wave you are on
 
-local function CheckFolderExists(folder_path)
-    if not isfolder(folder_path) then
-		makefolder(folder_path)
-    end
-end
-
-local LocalFolder = "StrategiesX/TDS/"
-CheckFolderExists("StrategiesX")
-CheckFolderExists(LocalFolder)
-CheckFolderExists(LocalFolder.."UserConfig")
-CheckFolderExists(LocalFolder.."UserLogs")
-CheckFolderExists(LocalFolder.."Recorder")
-
 getgenv().WriteFile = function(check,name,location,str)
     if not check then
         return
@@ -79,7 +66,7 @@ local writestrat = function(...)
         end
         local Text = table.concat(TableText, " ")
         print(Text)
-        return WriteFile(true,LocalPlayer.Name.."'s strat",LocalFolder.."Recorder",tostring(Text).."\n")
+        return WriteFile(true,LocalPlayer.Name.."'s strat","StrategiesX/TDS/Recorder",tostring(Text).."\n")
     end)
 end
 local appendstrat = function(...)
@@ -95,7 +82,7 @@ local appendstrat = function(...)
         end
         local Text = table.concat(TableText, " ")
         print(Text)
-        return AppendFile(true,LocalPlayer.Name.."'s strat",LocalFolder.."Recorder",tostring(Text).."\n")
+        return AppendFile(true,LocalPlayer.Name.."'s strat","StrategiesX/TDS/Recorder",tostring(Text).."\n")
     end)
 end
 getgenv().Recorder = {
